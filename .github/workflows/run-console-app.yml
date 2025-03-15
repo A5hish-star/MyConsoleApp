@@ -1,0 +1,23 @@
+name: Run Console App
+
+on:
+  workflow_dispatch:  # This allows you to manually trigger the workflow from the GitHub Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+          
+      - name: Build the project
+        run: dotnet build MyconsoleApp.csproj --configuration Release
+        
+      - name: Run the Console App
+        run: dotnet run --project MyconsoleApp.csproj --configuration Release -- --no-wait
